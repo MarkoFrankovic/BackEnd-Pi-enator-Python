@@ -26,6 +26,5 @@ mydoc7 = Jack.find().sort("ocjena",-1)
 mydoc8 = Merlot.find().sort("ocjena",-1)
 mydoc9 = Stock.find().sort("ocjena",-1)
 
-
 for x in mydoc1:
   print(x)
