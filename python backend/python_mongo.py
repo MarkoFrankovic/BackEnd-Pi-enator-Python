@@ -9,6 +9,7 @@ mycol = mydb["Pjesme.Bambus"]
 myquery = {"ocjena": "4"}
 
 mydoc = mycol.find(myquery)
+x = mycol.find_one()
 
 for x in mydoc:
     print(x)
