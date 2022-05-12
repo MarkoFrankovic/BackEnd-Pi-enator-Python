@@ -1,7 +1,10 @@
 import pymongo
 import json
-from flask import Flask,jsonify
+from flask import Flask,jsonify,request
+from flask_cors import CORS, cross_origin
 app = Flask(__name__)
+cors = CORS(app,resources = {r"/*":{"origins":"*"}})
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 myclient = pymongo.MongoClient(
     "mongodb+srv://Korisnik:korisnik@databaza.tip3k.mongodb.net/Databaza?retryWrites=true&w=majority")
@@ -16,53 +19,44 @@ Travarica = mydb["Pjesme_Travarica"]
 Vodka = mydb["Pjesme_Vodka"]
 Jack = mydb["Pjesme_Jack"]
 Merlot = mydb["Pjesme_Merlot"]
-Stock = mydb["Pjesme_Bambus"]
+Stock = mydb["Pjesme_Stock"]
 
-mydoc1 = Jaeger.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
-mydoc2 = Bambus.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
-mydoc3 = Voda.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
-mydoc4 = Gin.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
-mydoc5 = Travarica.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
-mydoc6 = Vodka.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
-mydoc7 = Jack.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
-mydoc8 = Merlot.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
-mydoc9 = Stock.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
 
 @app.route('/jaeger')
 def jaeger():
-   return jsonify(list(mydoc1))
+   return jsonify(list(Jaeger.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
 
 @app.route('/bambus')
 def bambus():
-   return jsonify(list(mydoc2))
+   return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
 
 @app.route('/voda')
 def voda():
-   return jsonify(list(mydoc3))
+   return jsonify(list(Voda.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
 
 @app.route('/gin')
 def gin():
-   return jsonify(list(mydoc4))
+   return jsonify(list(Gin.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
 
 @app.route('/travarica')
 def travarica():
-   return jsonify(list(mydoc5))
+   return jsonify(list(Travarica.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
 
 @app.route('/vodka')
 def vodka():
-   return jsonify(list(mydoc6))
+   return jsonify(list(Vodka.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
 
 @app.route('/jack')
 def jack():
-   return jsonify(list(mydoc7))
+   return jsonify(list(Jack.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
 
 @app.route('/merlot')
 def merlot():
-   return jsonify(list(mydoc8))
+   return jsonify(list(Merlot.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
 
 @app.route('/stock')
 def stock():
-   return jsonify(list(mydoc9))
+   return jsonify(list(Stock.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
 
 if __name__ == '__main__':
    app.run()
