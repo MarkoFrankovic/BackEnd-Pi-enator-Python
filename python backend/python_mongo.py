@@ -18,27 +18,28 @@ Jack = mydb["Pjesme_Jack"]
 Merlot = mydb["Pjesme_Merlot"]
 Stock = mydb["Pjesme_Bambus"]
 
-mydoc1 = Jaeger.find().sort("ocjena",-1)
-mydoc2 = Bambus.find().sort("ocjena",-1)
-mydoc3 = Voda.find().sort("ocjena",-1)
-mydoc4 = Gin.find().sort("ocjena",-1)
-mydoc5 = Travarica.find().sort("ocjena",-1)
-mydoc6 = Vodka.find().sort("ocjena",-1)
-mydoc7 = Jack.find().sort("ocjena",-1)
-mydoc8 = Merlot.find().sort("ocjena",-1)
-mydoc9 = Stock.find().sort("ocjena",-1)
+mydoc1 = Jaeger.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
+mydoc2 = Bambus.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
+mydoc3 = Voda.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
+mydoc4 = Gin.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
+mydoc5 = Travarica.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
+mydoc6 = Vodka.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
+mydoc7 = Jack.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
+mydoc8 = Merlot.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
+mydoc9 = Stock.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
+
+for x in mydoc1:
+    print(x)
 
 
+#@app.route('/')
+#def hello_world():
+   #return "Hello World"
 
-
-@app.route('/')
-def hello_world():
-   return "Hello World"
-
-@app.route('/jaeger')
-def jaeger():
-   return "Dobar dan"
+#@app.route('/jaeger')
+#def jaeger():
+  # return "Dobar dan"
    
 
-if __name__ == '__main__':
-   app.run()
+#if __name__ == '__main__':
+  # app.run()
