@@ -1,15 +1,12 @@
 import pymongo
+
 myclient = pymongo.MongoClient(
     "mongodb+srv://Korisnik:korisnik@databaza.tip3k.mongodb.net/Databaza?retryWrites=true&w=majority")
 
 mydb = myclient["Pjesme"]
-mycol = mydb["Pjesme.Bambus"]
+mycol = mydb["Pjesme_Bambus"]
 
+print(mydb.list_collection_names())
 
-myquery = {"ocjena": "4"}
-
-mydoc = mycol.find(myquery)
-x = mycol.find_one()
-
-for x in mydoc:
-    print(x)
+for x in mycol.find():
+  print(x)
