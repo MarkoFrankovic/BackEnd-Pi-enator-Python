@@ -1,10 +1,12 @@
 import pymongo
+from flask import Flask
+app = Flask(__name__)
 
 myclient = pymongo.MongoClient(
     "mongodb+srv://Korisnik:korisnik@databaza.tip3k.mongodb.net/Databaza?retryWrites=true&w=majority")
 
 mydb = myclient["Pjesme"]
-print(mydb.list_collection_names())
+#print(mydb.list_collection_names())
 
 Jaeger = mydb["Pjesme_Jaeger"]
 Bambus = mydb["Pjesme_Bambus"]
@@ -26,5 +28,17 @@ mydoc7 = Jack.find().sort("ocjena",-1)
 mydoc8 = Merlot.find().sort("ocjena",-1)
 mydoc9 = Stock.find().sort("ocjena",-1)
 
-for x in mydoc1:
-  print(x)
+
+
+
+@app.route('/')
+def hello_world():
+   return "Hello World"
+
+@app.route('/jaeger')
+def jaeger():
+   return "Dobar dan"
+   
+
+if __name__ == '__main__':
+   app.run()
