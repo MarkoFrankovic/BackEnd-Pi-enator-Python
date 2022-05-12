@@ -28,18 +28,18 @@ mydoc7 = Jack.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
 mydoc8 = Merlot.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
 mydoc9 = Stock.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)
 
-for x in mydoc1:
-    print(x)
+#for x in mydoc1:
+    #print(x)
 
 
-#@app.route('/')
-#def hello_world():
-   #return "Hello World"
+@app.route('/')
+def hello_world():
+   return "Hello World"
 
-#@app.route('/jaeger')
-#def jaeger():
-  # return "Dobar dan"
+@app.route('/jaeger')
+def jaeger():
+   return mydoc1
    
 
-#if __name__ == '__main__':
-  # app.run()
+if __name__ == '__main__':
+   app.run()
