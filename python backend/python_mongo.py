@@ -22,6 +22,7 @@ Merlot = mydb["Pjesme_Merlot"]
 Stock = mydb["Pjesme_Stock"]
 
 
+
 @app.route('/jaeger')
 def jaeger():
    return jsonify(list(Jaeger.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
@@ -58,6 +59,14 @@ def merlot():
 def stock():
    return jsonify(list(Stock.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
 
+@app.route('/upis', methods=['POST'])
+def upis():
+   data = request.get_json()
+   return data
+
+@app.errorhandler(400)
+def bad_request(error):
+   return ({"code":400, "message":error.description},400)
+
 if __name__ == '__main__':
    app.run()
-
