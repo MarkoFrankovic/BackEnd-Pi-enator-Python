@@ -1,7 +1,7 @@
 import pymongo
-import json
 from flask import Flask,jsonify,request
 from flask_cors import CORS, cross_origin
+import bson.json_util as json_util
 app = Flask(__name__)
 cors = CORS(app,resources = {r"/*":{"origins":"*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -20,7 +20,6 @@ Vodka = mydb["Pjesme_Vodka"]
 Jack = mydb["Pjesme_Jack"]
 Merlot = mydb["Pjesme_Merlot"]
 Stock = mydb["Pjesme_Stock"]
-
 
 @app.route('/jaeger')
 def jaeger():
@@ -61,11 +60,11 @@ def stock():
 @app.route('/upis', methods=['POST'])
 def upis():
    data = request.get_json()
-   print(data)
+   print(json_util.dumps(data))
    mydict = data
    pice = data.pop("pice")
    data["ocjena"] = int(data["ocjena"])
-   print(data)
+   
    if pice == "Jaeger":
       Jaeger.insert_one(data)
    elif pice == "Bambus":
