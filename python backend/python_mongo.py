@@ -62,7 +62,7 @@ def stock():
 @app.route('/upis', methods=['POST'])
 def upis():
    data = request.get_json()
-   return data
+   return {"test":"test"}
 
 @app.errorhandler(400)
 def bad_request(error):
