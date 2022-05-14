@@ -64,24 +64,26 @@ def upis():
    print(data)
    mydict = data
    pice = data.pop("pice")
+   data["ocjena"] = int(data["ocjena"])
+   print(data)
    if pice == "Jaeger":
       Jaeger.insert_one(data)
-   if pice == "Bambus":
-      Jaeger.insert_one(data)
-   if pice == "Voda":
-      Jaeger.insert_one(data)
-   if pice == "Gin":
-      Jaeger.insert_one(data)
-   if pice == "Travarica":
-      Jaeger.insert_one(data)
-   if pice == "Vodka":
-      Jaeger.insert_one(data)
-   if pice == "Jack":
-      Jaeger.insert_one(data)
-   if pice == "Merlot":
-      Jaeger.insert_one(data)
-   if pice == "Stock":
-      Jaeger.insert_one(data)
+   elif pice == "Bambus":
+      Bambus.insert_one(data)
+   elif pice == "Voda":
+      Voda.insert_one(data)
+   elif pice == "Gin":
+      Gin.insert_one(data)
+   elif pice == "Travarica":
+      Travarica.insert_one(data)
+   elif pice == "Vodka":
+      Vodka.insert_one(data)
+   elif pice == "Jack":
+      Jack.insert_one(data)
+   elif pice == "Merlot":
+      Merlot.insert_one(data)
+   elif pice == "Stock":
+      Stock.insert_one(data)
 
    return data
 
