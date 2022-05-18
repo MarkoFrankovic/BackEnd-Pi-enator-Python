@@ -86,6 +86,17 @@ def upis():
 
    return data
 
+@app.route('/izmjena_bambus', methods=['POST'])
+def izmjena_bambus():
+   data = request.get_json()
+   print(json_util.dumps(data))
+   mydict = data
+   newvalues = { "$set": { "ocjena": data } }
+   myquery = { "url":  ""}
+   mycol.update_one(myquery, newvalues)
+   
+   return data
+
 @app.errorhandler(400)
 def bad_request(error):
    return ({"code":400, "message":error.description},400)
