@@ -91,8 +91,8 @@ def izmjena_bambus():
    data = request.get_json()
    print(json_util.dumps(data))
    mydict = data
-   newvalues = { "$set": { "ocjena": data } }
-   myquery = { "url":  ""}
+   myquery = { "url":  data["url"]}
+   newvalues = { "$set": { "ocjena": data["ocjena"] } }
    mycol.update_one(myquery, newvalues)
    
    return data
