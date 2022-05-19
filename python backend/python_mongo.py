@@ -93,7 +93,7 @@ def izmjena_bambus():
    mydict = data
    myquery = { "url":  data["url"]}
    newvalues = { "$set": { "ocjena": data["ocjena"] } }
-   Bambus.update_one(myquery, newvalues)
+   Bambus.update_many(myquery, newvalues)
    return data
 
 @app.errorhandler(400)
