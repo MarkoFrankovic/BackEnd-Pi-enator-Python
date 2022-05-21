@@ -23,39 +23,39 @@ Stock = mydb["Pjesme_Stock"]
 
 @app.route('/jaeger')
 def jaeger():
-   return jsonify(list(Jaeger.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
+   return jsonify(list(Jaeger.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
 
 @app.route('/bambus')
 def bambus():
-   return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
+   return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
 
 @app.route('/voda')
 def voda():
-   return jsonify(list(Voda.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
+   return jsonify(list(Voda.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
 
 @app.route('/gin')
 def gin():
-   return jsonify(list(Gin.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
+   return jsonify(list(Gin.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
 
 @app.route('/travarica')
 def travarica():
-   return jsonify(list(Travarica.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
+   return jsonify(list(Travarica.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
 
 @app.route('/vodka')
 def vodka():
-   return jsonify(list(Vodka.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
+   return jsonify(list(Vodka.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
 
 @app.route('/jack')
 def jack():
-   return jsonify(list(Jack.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
+   return jsonify(list(Jack.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
 
 @app.route('/merlot')
 def merlot():
-   return jsonify(list(Merlot.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
+   return jsonify(list(Merlot.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
 
 @app.route('/stock')
 def stock():
-   return jsonify(list(Stock.find({},{ "_id": 0, "ime": 0, "ocjena": 0 }).sort("ocjena",-1)))
+   return jsonify(list(Stock.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
 
 @app.route('/upis', methods=['POST'])
 def upis():
@@ -86,6 +86,16 @@ def upis():
 
    return data
 
+@app.route('/izmjena_jaeger', methods=['POST'])
+def izmjena_jaeger():
+   data = request.get_json()
+   print(json_util.dumps(data))
+   mydict = data
+   myquery = { "url":  data["url"]}
+   newvalues = { "$set": { "ocjena": data["ocjena"] } }
+   Jaeger.update_many(myquery, newvalues)
+   return data
+
 @app.route('/izmjena_bambus', methods=['POST'])
 def izmjena_bambus():
    data = request.get_json()
@@ -94,6 +104,76 @@ def izmjena_bambus():
    myquery = { "url":  data["url"]}
    newvalues = { "$set": { "ocjena": data["ocjena"] } }
    Bambus.update_many(myquery, newvalues)
+   return data
+
+@app.route('/izmjena_voda', methods=['POST'])
+def izmjena_voda():
+   data = request.get_json()
+   print(json_util.dumps(data))
+   mydict = data
+   myquery = { "url":  data["url"]}
+   newvalues = { "$set": { "ocjena": data["ocjena"] } }
+   Voda.update_many(myquery, newvalues)
+   return data
+
+@app.route('/izmjena_gin', methods=['POST'])
+def izmjena_gin():
+   data = request.get_json()
+   print(json_util.dumps(data))
+   mydict = data
+   myquery = { "url":  data["url"]}
+   newvalues = { "$set": { "ocjena": data["ocjena"] } }
+   Gin.update_many(myquery, newvalues)
+   return data
+
+@app.route('/izmjena_travarica', methods=['POST'])
+def izmjena_travarica():
+   data = request.get_json()
+   print(json_util.dumps(data))
+   mydict = data
+   myquery = { "url":  data["url"]}
+   newvalues = { "$set": { "ocjena": data["ocjena"] } }
+   Travarica.update_many(myquery, newvalues)
+   return data
+
+@app.route('/izmjena_vodka', methods=['POST'])
+def izmjena_vodka():
+   data = request.get_json()
+   print(json_util.dumps(data))
+   mydict = data
+   myquery = { "url":  data["url"]}
+   newvalues = { "$set": { "ocjena": data["ocjena"] } }
+   Vodka.update_many(myquery, newvalues)
+   return data
+
+@app.route('/izmjena_jack', methods=['POST'])
+def izmjena_jack():
+   data = request.get_json()
+   print(json_util.dumps(data))
+   mydict = data
+   myquery = { "url":  data["url"]}
+   newvalues = { "$set": { "ocjena": data["ocjena"] } }
+   Jack.update_many(myquery, newvalues)
+   return data
+
+@app.route('/izmjena_merlot', methods=['POST'])
+def izmjena_merlot():
+   data = request.get_json()
+   print(json_util.dumps(data))
+   mydict = data
+   myquery = { "url":  data["url"]}
+   newvalues = { "$set": { "ocjena": data["ocjena"] } }
+   Merlot.update_many(myquery, newvalues)
+   return data
+
+@app.route('/izmjena_stock', methods=['POST'])
+def izmjena_stock():
+   data = request.get_json()
+   print(json_util.dumps(data))
+   mydict = data
+   myquery = { "url":  data["url"]}
+   newvalues = { "$set": { "ocjena": data["ocjena"] } }
+   Stock.update_many(myquery, newvalues)
    return data
 
 @app.errorhandler(400)
