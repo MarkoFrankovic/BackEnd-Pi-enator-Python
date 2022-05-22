@@ -9,6 +9,13 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 myclient = pymongo.MongoClient(
     "mongodb+srv://Korisnik:korisnik@databaza.tip3k.mongodb.net/Databaza?retryWrites=true&w=majority")
 
+myclient2 = pymongo.MongoClient(
+    "mongodb+srv://Korisnik:korisnik@databaza.tip3k.mongodb.net/Databaza?retryWrites=true&w=majority")
+
+mydb2 = myclient["Autentifikacija"]
+Korisnici = mydb2["Korisnici"]
+
+
 mydb = myclient["Pjesme"]
 
 Jaeger = mydb["Pjesme_Jaeger"]
@@ -56,6 +63,10 @@ def merlot():
 @app.route('/stock')
 def stock():
    return jsonify(list(Stock.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
+
+@app.route('/autentifikacija')
+def autentifikacija():
+   return jsonify(list(Korisnici.find({},{ "_id": 0, "username": 1, "password": 1})))
 
 @app.route('/upis', methods=['POST'])
 def upis():
