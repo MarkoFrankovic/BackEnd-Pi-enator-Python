@@ -15,7 +15,6 @@ myclient2 = pymongo.MongoClient(
 mydb2 = myclient["Autentifikacija"]
 Korisnici = mydb2["Korisnici"]
 
-
 mydb = myclient["Pjesme"]
 
 Jaeger = mydb["Pjesme_Jaeger"]
