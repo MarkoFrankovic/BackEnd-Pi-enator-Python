@@ -7,17 +7,23 @@ cors = CORS(app,resources = {r"/*":{"origins":"*"}})
 app.run(host="0.0.0.0")
 app.config['CORS_HEADERS'] = 'Content-Type'
 
+#spajanje na bazu
 myclient = pymongo.MongoClient(
     "mongodb+srv://Korisnik:korisnik@databaza.tip3k.mongodb.net/Databaza?retryWrites=true&w=majority")
 
-myclient2 = pymongo.MongoClient(
-    "mongodb+srv://Korisnik:korisnik@databaza.tip3k.mongodb.net/Databaza?retryWrites=true&w=majority")
+#myclient2 = pymongo.MongoClient(
+    #"mongodb+srv://Korisnik:korisnik@databaza.tip3k.mongodb.net/Databaza?retryWrites=true&w=majority")
+#mydb2 = myclient["Autentifikacija"]
+#Korisnici = mydb2["Korisnici"]
 
-mydb2 = myclient["Autentifikacija"]
-Korisnici = mydb2["Korisnici"]
+#@app.route('/autentifikacija')
+#def autentifikacija():
+   #return jsonify(list(Korisnici.find({},{ "_id": 0, "username": 1, "password": 1})))
 
+#izbor databaze
 mydb = myclient["Pjesme"]
 
+#izbor kolekcija
 Jaeger = mydb["Pjesme_Jaeger"]
 Bambus = mydb["Pjesme_Bambus"]
 Voda = mydb["Pjesme_Voda"]
@@ -28,6 +34,8 @@ Jack = mydb["Pjesme_Jack"]
 Merlot = mydb["Pjesme_Merlot"]
 Stock = mydb["Pjesme_Stock"]
 
+
+#rute za getanje sortiranih pića
 @app.route('/jaeger')
 def jaeger():
    return jsonify(list(Jaeger.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
@@ -64,10 +72,7 @@ def merlot():
 def stock():
    return jsonify(list(Stock.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
 
-@app.route('/autentifikacija')
-def autentifikacija():
-   return jsonify(list(Korisnici.find({},{ "_id": 0, "username": 1, "password": 1})))
-
+#ruta za dodavanje u databazu
 @app.route('/upis', methods=['POST'])
 def upis():
    data = request.get_json()
@@ -94,9 +99,9 @@ def upis():
       Merlot.insert_one(data)
    elif pice == "Stock":
       Stock.insert_one(data)
-
    return data
 
+#rute za izmjenu ocjene pojedinog pića
 @app.route('/izmjena_jaeger', methods=['POST'])
 def izmjena_jaeger():
    data = request.get_json()
@@ -186,10 +191,6 @@ def izmjena_stock():
    newvalues = { "$set": { "ocjena": data["ocjena"] } }
    Stock.update_many(myquery, newvalues)
    return data
-
-@app.errorhandler(400)
-def bad_request(error):
-   return ({"code":400, "message":error.description},400)
 
 if __name__ == '__main__':
    app.run()
