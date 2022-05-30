@@ -4,6 +4,7 @@ from flask_cors import CORS, cross_origin
 import bson.json_util as json_util
 app = Flask(__name__)
 cors = CORS(app,resources = {r"/*":{"origins":"*"}})
+app.run(host="0.0.0.0")
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 myclient = pymongo.MongoClient(
