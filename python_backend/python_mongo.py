@@ -63,6 +63,16 @@ def stock():
    return jsonify(list(Stock.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
 
 
+
+@app.route('/getanje/<String:pice>')
+def getanje(pice):
+      data = request.get_json()
+      mydict = data
+      pice = data.pop("pice")
+      if pice == "Bambus":
+         return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
+      
+
 #ruta za dodavanje u databazu
 @app.route('/upis', methods=['POST'])
 def upis():
