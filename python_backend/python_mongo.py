@@ -4,21 +4,11 @@ from flask_cors import CORS, cross_origin
 import bson.json_util as json_util
 app = Flask(__name__)
 cors = CORS(app,resources = {r"/*":{"origins":"*"}})
-app.run(host="0.0.0.0")
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 #spajanje na bazu
 myclient = pymongo.MongoClient(
     "mongodb+srv://Korisnik:korisnik@databaza.tip3k.mongodb.net/Databaza?retryWrites=true&w=majority")
-
-#myclient2 = pymongo.MongoClient(
-    #"mongodb+srv://Korisnik:korisnik@databaza.tip3k.mongodb.net/Databaza?retryWrites=true&w=majority")
-#mydb2 = myclient["Autentifikacija"]
-#Korisnici = mydb2["Korisnici"]
-
-#@app.route('/autentifikacija')
-#def autentifikacija():
-   #return jsonify(list(Korisnici.find({},{ "_id": 0, "username": 1, "password": 1})))
 
 #izbor databaze
 mydb = myclient["Pjesme"]
@@ -72,6 +62,7 @@ def merlot():
 def stock():
    return jsonify(list(Stock.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
 
+
 #ruta za dodavanje u databazu
 @app.route('/upis', methods=['POST'])
 def upis():
@@ -101,96 +92,45 @@ def upis():
       Stock.insert_one(data)
    return data
 
-#rute za izmjenu ocjene pojedinog pića
-@app.route('/izmjena_jaeger', methods=['POST'])
-def izmjena_jaeger():
+
+@app.route('/izmjena', methods=['POST'])
+def izmjena_pica():
    data = request.get_json()
    print(json_util.dumps(data))
    mydict = data
    myquery = { "url":  data["url"]}
    newvalues = { "$set": { "ocjena": data["ocjena"] } }
-   Jaeger.update_many(myquery, newvalues)
+   pice = data.pop("pice")
+   
+   if (pice == "Bambus"):
+      Bambus.update_many(myquery, newvalues)
+
+   elif (pice == "Jaeger"):
+      Jaeger.update_many(myquery, newvalues)
+
+   elif (pice == "Voda"):
+      Voda.update_many(myquery, newvalues)
+
+   elif (pice == "Vodka"):
+      Vodka.update_many(myquery, newvalues)
+
+   elif (pice == "Stock"):
+      Stock.update_many(myquery, newvalues)
+
+   elif (pice == "Gin"):
+      Gin.update_many(myquery, newvalues)
+
+   elif (pice == "Travarica"):
+      Travarica.update_many(myquery, newvalues)
+
+   elif (pice == "Jack"):
+      Jack.update_many(myquery, newvalues)
+
+   elif (pice == "Merlot"):
+      Merlot.update_many(myquery, newvalues)
    return data
 
-@app.route('/izmjena_bambus', methods=['POST'])
-def izmjena_bambus():
-   data = request.get_json()
-   print(json_util.dumps(data))
-   mydict = data
-   myquery = { "url":  data["url"]}
-   newvalues = { "$set": { "ocjena": data["ocjena"] } }
-   Bambus.update_many(myquery, newvalues)
-   return data
-
-@app.route('/izmjena_voda', methods=['POST'])
-def izmjena_voda():
-   data = request.get_json()
-   print(json_util.dumps(data))
-   mydict = data
-   myquery = { "url":  data["url"]}
-   newvalues = { "$set": { "ocjena": data["ocjena"] } }
-   Voda.update_many(myquery, newvalues)
-   return data
-
-@app.route('/izmjena_gin', methods=['POST'])
-def izmjena_gin():
-   data = request.get_json()
-   print(json_util.dumps(data))
-   mydict = data
-   myquery = { "url":  data["url"]}
-   newvalues = { "$set": { "ocjena": data["ocjena"] } }
-   Gin.update_many(myquery, newvalues)
-   return data
-
-@app.route('/izmjena_travarica', methods=['POST'])
-def izmjena_travarica():
-   data = request.get_json()
-   print(json_util.dumps(data))
-   mydict = data
-   myquery = { "url":  data["url"]}
-   newvalues = { "$set": { "ocjena": data["ocjena"] } }
-   Travarica.update_many(myquery, newvalues)
-   return data
-
-@app.route('/izmjena_vodka', methods=['POST'])
-def izmjena_vodka():
-   data = request.get_json()
-   print(json_util.dumps(data))
-   mydict = data
-   myquery = { "url":  data["url"]}
-   newvalues = { "$set": { "ocjena": data["ocjena"] } }
-   Vodka.update_many(myquery, newvalues)
-   return data
-
-@app.route('/izmjena_jack', methods=['POST'])
-def izmjena_jack():
-   data = request.get_json()
-   print(json_util.dumps(data))
-   mydict = data
-   myquery = { "url":  data["url"]}
-   newvalues = { "$set": { "ocjena": data["ocjena"] } }
-   Jack.update_many(myquery, newvalues)
-   return data
-
-@app.route('/izmjena_merlot', methods=['POST'])
-def izmjena_merlot():
-   data = request.get_json()
-   print(json_util.dumps(data))
-   mydict = data
-   myquery = { "url":  data["url"]}
-   newvalues = { "$set": { "ocjena": data["ocjena"] } }
-   Merlot.update_many(myquery, newvalues)
-   return data
-
-@app.route('/izmjena_stock', methods=['POST'])
-def izmjena_stock():
-   data = request.get_json()
-   print(json_util.dumps(data))
-   mydict = data
-   myquery = { "url":  data["url"]}
-   newvalues = { "$set": { "ocjena": data["ocjena"] } }
-   Stock.update_many(myquery, newvalues)
-   return data
 
 if __name__ == '__main__':
-   app.run()
+   app.run(host="0.0.0.0")
+   
