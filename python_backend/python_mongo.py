@@ -31,21 +31,21 @@ def getanje(pice):
       if pice == "bambus":
          return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
       elif pice == "jaeger":
-         return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
+         return jsonify(list(Jaeger.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
       elif pice == "voda":
-         return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
+         return jsonify(list(Voda.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
       elif pice == "gin":
-         return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
+         return jsonify(list(Gin.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
       elif pice == "travarica":
-         return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
+         return jsonify(list(Travarica.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
       elif pice == "vodka":
-         return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
+         return jsonify(list(Vodka.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
       elif pice == "jack":
-         return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
+         return jsonify(list(Jack.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
       elif pice == "merlot":
-         return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
+         return jsonify(list(Merlot.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
       elif pice == "stock":
-         return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
+         return jsonify(list(Stock.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
 
 #ruta za dodavanje u databazu
 @app.route('/upis', methods=['POST'])
