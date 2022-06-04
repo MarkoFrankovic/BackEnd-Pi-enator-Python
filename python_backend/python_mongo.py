@@ -75,7 +75,6 @@ def upis():
       Stock.insert_one(data)
    return data
 
-
 @app.route('/izmjena', methods=['POST'])
 def izmjena_pica():
    data = request.get_json()
