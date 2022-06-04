@@ -104,32 +104,23 @@ def izmjena_pica():
    
    if (pice == "Bambus"):
       Bambus.update_many(myquery, newvalues)
-
    elif (pice == "Jaeger"):
       Jaeger.update_many(myquery, newvalues)
-
    elif (pice == "Voda"):
       Voda.update_many(myquery, newvalues)
-
    elif (pice == "Vodka"):
       Vodka.update_many(myquery, newvalues)
-
    elif (pice == "Stock"):
       Stock.update_many(myquery, newvalues)
-
    elif (pice == "Gin"):
       Gin.update_many(myquery, newvalues)
-
    elif (pice == "Travarica"):
       Travarica.update_many(myquery, newvalues)
-
    elif (pice == "Jack"):
       Jack.update_many(myquery, newvalues)
-
    elif (pice == "Merlot"):
       Merlot.update_many(myquery, newvalues)
    return data
-
 
 if __name__ == '__main__':
    app.run(host="0.0.0.0")
