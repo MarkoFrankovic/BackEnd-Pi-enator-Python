@@ -76,7 +76,7 @@ def upis():
    return data
 
 #ruta za izmjenu podataka u databazi
-@app.route('/izmjena', methods=['POST'])
+@app.route('/izmjena', methods=['PATCH'])
 def izmjena_pica():
    data = request.get_json()
    print(json_util.dumps(data))
