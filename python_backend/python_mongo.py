@@ -25,53 +25,27 @@ Merlot = mydb["Pjesme_Merlot"]
 Stock = mydb["Pjesme_Stock"]
 
 
-#rute za getanje sortiranih pića
-@app.route('/jaeger')
-def jaeger():
-   return jsonify(list(Jaeger.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
-
-@app.route('/bambus')
-def bambus():
-   return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
-
-@app.route('/voda')
-def voda():
-   return jsonify(list(Voda.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
-
-@app.route('/gin')
-def gin():
-   return jsonify(list(Gin.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
-
-@app.route('/travarica')
-def travarica():
-   return jsonify(list(Travarica.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
-
-@app.route('/vodka')
-def vodka():
-   return jsonify(list(Vodka.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
-
-@app.route('/jack')
-def jack():
-   return jsonify(list(Jack.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
-
-@app.route('/merlot')
-def merlot():
-   return jsonify(list(Merlot.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
-
-@app.route('/stock')
-def stock():
-   return jsonify(list(Stock.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
-
-
-
-@app.route('/getanje/<String:pice>')
+#getanje sortiranih pića
+@app.route('/getanje/<pice>')
 def getanje(pice):
-      data = request.get_json()
-      mydict = data
-      pice = data.pop("pice")
-      if pice == "Bambus":
+      if pice == "bambus":
          return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
-      
+      elif pice == "jaeger":
+         return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
+      elif pice == "voda":
+         return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
+      elif pice == "gin":
+         return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
+      elif pice == "travarica":
+         return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
+      elif pice == "vodka":
+         return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
+      elif pice == "jack":
+         return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
+      elif pice == "merlot":
+         return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
+      elif pice == "stock":
+         return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
 
 #ruta za dodavanje u databazu
 @app.route('/upis', methods=['POST'])
