@@ -24,7 +24,6 @@ Jack = mydb["Pjesme_Jack"]
 Merlot = mydb["Pjesme_Merlot"]
 Stock = mydb["Pjesme_Stock"]
 
-
 #getanje sortiranih pića
 @app.route('/getanje/<pice>')
 def getanje(pice):
