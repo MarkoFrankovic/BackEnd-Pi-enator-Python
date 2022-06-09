@@ -105,6 +105,35 @@ def izmjena_pica():
       Merlot.update_many(myquery, newvalues)
    return data
 
+#brisanje pjesme iz databaze
+@app.route('/delete', methods=['DELETE'])
+def delete_pjesme():
+   data = request.get_json()
+   print(json_util.dumps(data))
+   mydict = data
+   myquery = { "ime":  data["ime"]}
+   pice = data.pop("pice")
+   
+   if (pice == "Bambus"):
+      Bambus.delete_many(myquery)
+   elif (pice == "Jaeger"):
+      Jaeger.delete_many(myquery)
+   elif (pice == "Voda"):
+      Voda.delete_many(myquery)
+   elif (pice == "Vodka"):
+      Vodka.delete_many(myquery)
+   elif (pice == "Stock"):
+      Stock.delete_many(myquery)
+   elif (pice == "Gin"):
+      Gin.delete_many(myquery)
+   elif (pice == "Travarica"):
+      Travarica.delete_many(myquery)
+   elif (pice == "Jack"):
+      Jack.delete_many(myquery)
+   elif (pice == "Merlot"):
+      Merlot.delete_many(myquery)
+   return data
+
 if __name__ == '__main__':
    app.run(host="0.0.0.0")
    
