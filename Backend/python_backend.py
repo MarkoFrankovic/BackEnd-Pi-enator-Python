@@ -7,7 +7,9 @@ cors = CORS(app,resources = {r"/*":{"origins":"*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 #spajanje na bazu
-myclient = pymongo.MongoClient("mongodb", 27017, maxPoolSize=50)
+#myclient = pymongo.MongoClient("mongodb", 27017, maxPoolSize=50)
+myclient = pymongo.MongoClient(
+    "mongodb+srv://Korisnik:korisnik@databaza.tip3k.mongodb.net/Databaza?retryWrites=true&w=majority")
 
 #izbor databaze
 mydb = myclient["Pjesme"]
@@ -26,7 +28,7 @@ Stock = mydb["Pjesme_Stock"]
 
 Komentari = mydb2["Komentari"]
 
-#READ CRUD
+#READ CRUD - Getanje pića
 @app.route('/getanje/<pice>')
 def getanje(pice):
       if pice == "bambus":
@@ -48,7 +50,7 @@ def getanje(pice):
       elif pice == "stock":
          return jsonify(list(Stock.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
 
-#CREATE CRUD
+#CREATE CRUD - Upis pjesama u databazu
 @app.route('/upis', methods=['POST'])
 def upis():
    data = request.get_json()
@@ -77,7 +79,7 @@ def upis():
       Stock.insert_one(data)
    return data
 
-#UPDATE CRUD
+#UPDATE CRUD - Izmjena ocjene
 @app.route('/izmjena', methods=['PATCH'])
 def izmjena_pica():
    data = request.get_json()
@@ -107,7 +109,7 @@ def izmjena_pica():
       Merlot.update_many(myquery, newvalues)
    return data
 
-#DELETE CRUD
+#DELETE CRUD - Brisanje pjesama iz databaze
 @app.route('/delete', methods=['DELETE'])
 def delete_pjesme():
    data = request.get_json()
