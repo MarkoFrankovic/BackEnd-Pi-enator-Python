@@ -1,1 +1,3 @@
 web: python python_backend.py 
+server:
+    port: $PORT 5000
