@@ -21,12 +21,12 @@ Pjesme = mydb["Pjesme"]
 Komentari = mydb2["Komentari"]
 
 #READ CRUD - Getanje pića
-@app.route('/getanje', methods=['GET'])
+@app.route('/pjesme', methods=['GET'])
 def dohvacanje():
    return jsonify(list(Pjesme.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1,"pice":1}).sort("ocjena",-1)))
 
 #CREATE CRUD - Upis pjesama u databazu
-@app.route('/upis', methods=['PUT'])
+@app.route('/pjesme', methods=['PUT'])
 def upis_u_bazu():
    data = request.get_json()
    print(json_util.dumps(data))
@@ -36,7 +36,7 @@ def upis_u_bazu():
    return data
 
 #UPDATE CRUD - Izmjena ocjene
-@app.route('/izmjena', methods=['PATCH'])
+@app.route('/pjesme/<_id>', methods=['PATCH'])
 def izmjena_ocjene():
    data = request.get_json()
    print(json_util.dumps(data))
@@ -47,7 +47,7 @@ def izmjena_ocjene():
    return data
 
 #DELETE CRUD - Brisanje pjesama iz databaze
-@app.route('/delete', methods=['DELETE'])
+@app.route('/pjesme/<_id>', methods=['DELETE'])
 def brisanje_pjesme():
    data = request.get_json()
    print(json_util.dumps(data))
@@ -57,7 +57,7 @@ def brisanje_pjesme():
    return data
 
 #Upis komentara u databazu
-@app.route('/upis_komentara', methods=['POST'])
+@app.route('/pjesme/upis_komentara', methods=['PUT'])
 def dodavanje_komentara_u_bazu():
    data = request.get_json()
    print(json_util.dumps(data))
