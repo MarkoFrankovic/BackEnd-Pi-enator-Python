@@ -30,7 +30,7 @@ Stock = mydb["Pjesme_Stock"]
 Komentari = mydb2["Komentari"]
 
 #READ CRUD - Getanje pića
-@app.route('/getanje/<pice>')
+@app.route('/getanje/<pice>', methods=['GET'])
 def getanje(pice):
       if pice == "bambus":
          return jsonify(list(Bambus.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1}).sort("ocjena",-1)))
