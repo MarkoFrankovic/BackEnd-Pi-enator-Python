@@ -24,9 +24,10 @@ Komentari = mydb2["Komentari"]
 #READ CRUD - Getanje pića
 @app.route('/api/pjesme/<pice>', methods=['GET'])
 def dohvacanje(pice):
-   myquery = {"pice": pice}
-   return jsonify(list(Pjesme.find(myquery,{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1,"pice":1}).sort("ocjena",-1)))
-   
+   #myquery = {"pice": pice}
+   return jsonify(list(Pjesme.find("pice": pice(pice)).sort("ocjena",-1)))
+   #myquery,{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1,"pice":1}
+
 #CREATE CRUD - Upis pjesama u databazu
 @app.route('/api/pjesme', methods=['POST'])
 def upis_u_bazu():
