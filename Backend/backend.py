@@ -22,13 +22,14 @@ Pjesme = mydb["Pjesme"]
 Komentari = mydb2["Komentari"]
 
 #READ CRUD - Getanje pića
-@app.route('/pjesme/dohvacanje/<pice>', methods=['GET'])
+@app.route('/pjesme/<pice>', methods=['GET'])
 def dohvacanje(pice):
-   myquery = { "pice": pice}
+   myquery = {"pice": pice}
    return jsonify(list(Pjesme.find(myquery,{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1,"pice":1}).sort("ocjena",-1)))
+   #,{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1,"pice":1}
    
 #CREATE CRUD - Upis pjesama u databazu
-@app.route('/pjesme/upis', methods=['POST'])
+@app.route('/pjesme', methods=['POST'])
 def upis_u_bazu():
    data = request.get_json()
    print(json_util.dumps(data))
@@ -38,18 +39,18 @@ def upis_u_bazu():
    return data
 
 #UPDATE CRUD - Izmjena ocjene
-@app.route('/pjesme/update', methods=['PUT'])
+@app.route('/pjesme', methods=['PUT'])
 def izmjena_ocjene():
    data = request.get_json()
    print(json_util.dumps(data))
    mydict = data
-   myquery = { "url":  data["url"]}
+   myquery = { "url":  data['url']}
    newvalues = { "$set": { "ocjena": data["ocjena"] } }
    Pjesme.update_many(myquery, newvalues)
    return data
 
 #DELETE CRUD - Brisanje pjesama iz databaze
-@app.route('/pjesme/delete', methods=['DELETE'])
+@app.route('/pjesme', methods=['DELETE'])
 def brisanje_pjesme():
    data = request.get_json()
    print(json_util.dumps(data))
