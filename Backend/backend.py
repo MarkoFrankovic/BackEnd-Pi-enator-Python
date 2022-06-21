@@ -26,7 +26,6 @@ Komentari = mydb2["Komentari"]
 def dohvacanje(pice):
    myquery = {"pice": pice}
    return jsonify(list(Pjesme.find(myquery,{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1,"pice":1}).sort("ocjena",-1)))
-   #,{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1,"pice":1}
    
 #CREATE CRUD - Upis pjesama u databazu
 @app.route('/pjesme', methods=['POST'])
@@ -39,7 +38,7 @@ def upis_u_bazu():
    return data
 
 #UPDATE CRUD - Izmjena ocjene
-@app.route('/pjesme', methods=['PUT'])
+@app.route('/pjesme', methods=['PATCH'])
 def izmjena_ocjene():
    data = request.get_json()
    print(json_util.dumps(data))
