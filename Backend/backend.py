@@ -6,6 +6,7 @@ import os
 app = Flask(__name__)
 cors = CORS(app,resources = {r"/*":{"origins":"*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
+#Allow: GET, POST, PUT , DELETE
 
 #spajanje na bazu
 #myclient = pymongo.MongoClient("mongodb", 27017, maxPoolSize=50)
@@ -21,12 +22,13 @@ Pjesme = mydb["Pjesme"]
 Komentari = mydb2["Komentari"]
 
 #READ CRUD - Getanje pića
-@app.route('/pjesme', methods=['GET'])
-def dohvacanje():
-   return jsonify(list(Pjesme.find({},{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1,"pice":1}).sort("ocjena",-1)))
-
+@app.route('/pjesme/<pice>', methods=['GET'])
+def dohvacanje(pice):
+   myquery = { "pice": pice}
+   return jsonify(list(Pjesme.find(myquery,{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1,"pice":1}).sort("ocjena",-1)))
+   
 #CREATE CRUD - Upis pjesama u databazu
-@app.route('/pjesme', methods=['PUT'])
+@app.route('/pjesme', methods=['POST'])
 def upis_u_bazu():
    data = request.get_json()
    print(json_util.dumps(data))
@@ -36,7 +38,7 @@ def upis_u_bazu():
    return data
 
 #UPDATE CRUD - Izmjena ocjene
-@app.route('/pjesme/<_id>', methods=['PATCH'])
+@app.route('/pjesme', methods=['PATCH'])
 def izmjena_ocjene():
    data = request.get_json()
    print(json_util.dumps(data))
@@ -47,7 +49,7 @@ def izmjena_ocjene():
    return data
 
 #DELETE CRUD - Brisanje pjesama iz databaze
-@app.route('/pjesme/<_id>', methods=['DELETE'])
+@app.route('/pjesme', methods=['DELETE'])
 def brisanje_pjesme():
    data = request.get_json()
    print(json_util.dumps(data))
@@ -57,7 +59,7 @@ def brisanje_pjesme():
    return data
 
 #Upis komentara u databazu
-@app.route('/pjesme/upis_komentara', methods=['PUT'])
+@app.route('/pjesme/upis_komentara', methods=['POST'])
 def dodavanje_komentara_u_bazu():
    data = request.get_json()
    print(json_util.dumps(data))
