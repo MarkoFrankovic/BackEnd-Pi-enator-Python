@@ -1,12 +1,12 @@
 import pymongo
-from flask import Flask,jsonify,request
+from flask import Flask,request
 from flask_cors import CORS, cross_origin
 import bson.json_util as json_util
 import os
+from bson.objectid import ObjectId
 app = Flask(__name__)
 cors = CORS(app,resources = {r"/*":{"origins":"*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
-#Allow: GET, POST, PUT , DELETE
 
 #spajanje na bazu
 #myclient = pymongo.MongoClient("mongodb", 27017, maxPoolSize=50)
@@ -24,9 +24,17 @@ Komentari = mydb2["Komentari"]
 #READ CRUD - Getanje pića
 @app.route('/api/pjesme/<pice>', methods=['GET'])
 def dohvacanje(pice):
-   #myquery = {"pice": pice}
-   return jsonify(list(Pjesme.find("pice": pice(pice)).sort("ocjena",-1)))
-   #myquery,{ "_id": 0, "ime": 1, "ocjena": 1 , "url": 1,"pice":1}
+   myquery = {"pice": pice}
+   option = { "_id": 1, "ime": 1, "ocjena": 1 , "url": 1,"pice":1}
+   return json_util.dumps((list(Pjesme.find(myquery,option).sort("ocjena",-1))))
+
+
+#READ CRUD - Getanje pića
+@app.route('/api/pjesme/<pice>/<id>', methods=['GET'])
+def ubi_me(pice,id):
+   myquery = {"pice": pice}
+   return json_util.dumps(list(Pjesme.find(myquery,{"_id": 1,"ime":1, "ocjena": 1 , "url": 1,"pice":1})))
+
 
 #CREATE CRUD - Upis pjesama u databazu
 @app.route('/api/pjesme', methods=['POST'])
@@ -39,23 +47,23 @@ def upis_u_bazu():
    return data
 
 #UPDATE CRUD - Izmjena ocjene
-@app.route('/api/pjesme', methods=['PATCH'])
-def izmjena_ocjene():
+@app.route('/api/pjesme/<id>', methods=['PATCH'])
+def izmjena_ocjene(id):
    data = request.get_json()
-   print(json_util.dumps(data))
    mydict = data
-   myquery = { "url":  data['url']}
+   print(json_util.dumps(data))
+   myquery = { "_id":  data['$oid']}
    newvalues = { "$set": { "ocjena": data["ocjena"] } }
-   Pjesme.update_many(myquery, newvalues)
+   Pjesme.update_one(myquery, newvalues)
    return data
 
 #DELETE CRUD - Brisanje pjesama iz databaze
-@app.route('/api/pjesme', methods=['DELETE'])
-def brisanje_pjesme():
+@app.route('/api/pjesme/<id>', methods=['DELETE'])
+def brisanje_pjesme(id):
    data = request.get_json()
    print(json_util.dumps(data))
    mydict = data
-   myquery = { "ime":  data["ime"]}
+   myquery = { "_id":  data['_id']}
    Pjesme.delete_many(myquery)
    return data
 
