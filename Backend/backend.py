@@ -30,10 +30,10 @@ def dohvacanje(pice):
 
 
 #READ CRUD - Getanje pića
-@app.route('/api/pjesme/<pice>/<id>', methods=['GET'])
-def ubi_me(pice,id):
-   myquery = {"pice": pice}
-   return json_util.dumps(list(Pjesme.find(myquery,{"_id": 1,"ime":1, "ocjena": 1 , "url": 1,"pice":1})))
+@app.route('/api/pjesme/<id>', methods=['GET'])
+def dohvati_posebno(id):
+   myquery = {"_id": id}
+   return json_util.dumps(list(Pjesme.find(myquery)))
 
 
 #CREATE CRUD - Upis pjesama u databazu
@@ -52,7 +52,8 @@ def izmjena_ocjene(id):
    data = request.get_json()
    mydict = data
    print(json_util.dumps(data))
-   myquery = { "_id":  data['$oid']}
+   id = ObjectId(data['_id']['$oid'])
+   myquery = { "_id":id}
    newvalues = { "$set": { "ocjena": data["ocjena"] } }
    Pjesme.update_one(myquery, newvalues)
    return data
@@ -61,9 +62,10 @@ def izmjena_ocjene(id):
 @app.route('/api/pjesme/<id>', methods=['DELETE'])
 def brisanje_pjesme(id):
    data = request.get_json()
-   print(json_util.dumps(data))
    mydict = data
-   myquery = { "_id":  data['_id']}
+   print(json_util.dumps(data))
+   id = ObjectId(data['_id']['$oid'])
+   myquery = { "_id":id}
    Pjesme.delete_many(myquery)
    return data
 
