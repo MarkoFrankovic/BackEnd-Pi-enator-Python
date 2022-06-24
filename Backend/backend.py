@@ -30,9 +30,10 @@ def dohvacanje(pice):
 
 
 #READ CRUD - Getanje pića
-@app.route('/api/pjesme/<id>', methods=['GET'])
-def dohvati_posebno(id):
-   myquery = {"_id": id}
+@app.route('/api/pjesme/<pice>/<id>', methods=['GET'])
+def dohvati_posebno(pice,id):
+   print("Ovaj je id:" + id)
+   myquery = {"_id": ObjectId(id),"pice": pice}
    return json_util.dumps(list(Pjesme.find(myquery)))
 
 
@@ -64,9 +65,9 @@ def brisanje_pjesme(id):
    data = request.get_json()
    mydict = data
    print(json_util.dumps(data))
-   id = ObjectId(data['_id']['$oid'])
+   id = ObjectId(data['_id'])
    myquery = { "_id":id}
-   Pjesme.delete_many(myquery)
+   Pjesme.delete_one(myquery)
    return data
 
 #Upis komentara u databazu
