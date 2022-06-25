@@ -71,7 +71,7 @@ def brisanje_pjesme(id):
    return data
 
 #Upis komentara u databazu
-@app.route('/api/pjesme/upisivanje_komentara', methods=['POST'])
+@app.route('/api/pjesme', methods=['POST'])
 def dodavanje_komentara_u_bazu():
    data = request.get_json()
    print(json_util.dumps(data))
